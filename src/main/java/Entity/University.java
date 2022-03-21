@@ -1,3 +1,7 @@
+package Entity;
+
+import Enums.StudyProfile;
+
 public class University {
 
     private String id;
@@ -59,7 +63,7 @@ public class University {
 
     @Override
     public String toString() {
-        return "University{" +
+        return "Entity.University{" +
                 "id='" + id + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", shotName='" + shotName + '\'' +
