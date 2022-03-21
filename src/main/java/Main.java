@@ -1,20 +1,33 @@
+import Comparators.*;
+import Entity.*;
+import Enums.*;
+
+import java.io.IOException;
+import java.util.List;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        University un1 = new University("1", "KGBU", "KGBU", 1937, StudyProfile.PHYSICS );
-        University un2 = new University("2", "Gnesinka", "Gnesinka", 1900, StudyProfile.MUSIC );
-        University un3 = new University("3", "Theater school im. Petuhova", "Pyatka", 1978, StudyProfile.THEATER );
+        List<University> universities = ReadFromFile.universitiesFromFile("src/main/resources/universityInfo.xlsx");
 
-        Student st1 = new Student("Ivan", "1", 1, 3.5f);
-        Student st2 = new Student("Stepan", "2", 3, 4.2f);
-        Student st3 = new Student("Larisa Ivanovna", "3", 4, 1.6f);
+        UniversityCompInterface unCompID = ComparatorController.getUniversityComparator(UniversityComparatorsEnum.ID);
+        UniversityCompInterface unCompFName = ComparatorController.getUniversityComparator(UniversityComparatorsEnum.FULLNAME);
+        UniversityCompInterface unCompShName = ComparatorController.getUniversityComparator(UniversityComparatorsEnum.SHORTNAME);
+        UniversityCompInterface unCompYear = ComparatorController.getUniversityComparator(UniversityComparatorsEnum.YEAROFFOUND);
+        UniversityCompInterface unCompProf = ComparatorController.getUniversityComparator(UniversityComparatorsEnum.MAINPROFILE);
 
-        System.out.println(un1);
-        System.out.println(un2);
-        System.out.println(un3);
-        System.out.println(st1);
-        System.out.println(st2);
-        System.out.println(st3);
+        universities.stream().sorted(unCompProf).forEach(System.out::println);
+
+        List<Student> students = ReadFromFile.studentsFromFile("src/main/resources/universityInfo.xlsx");
+
+        StudentCompInterface stCompName = ComparatorController.getStudentComparator(StudentComparatorsEnum.FULLNAME);
+        StudentCompInterface stCompUnId = ComparatorController.getStudentComparator(StudentComparatorsEnum.UNIVERSITYID);
+        StudentCompInterface stCompCourse = ComparatorController.getStudentComparator(StudentComparatorsEnum.COURSENUMBER);
+        StudentCompInterface stCompAvg = ComparatorController.getStudentComparator(StudentComparatorsEnum.AVGEXAMSCORE);
+
+        students.stream().sorted(stCompUnId).forEach(System.out::println);
+
+
 
     }
 
